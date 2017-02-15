@@ -1,0 +1,26 @@
+{
+  "name": "sypave",
+  "version": "0.0.1",
+  "description": "Lightweight framework for lightweight, offline-first and mobile-first web apps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anderflash/sypave.git"
+  },
+  "keywords": [
+    "webapp",
+    "spa",
+    "offline-first",
+    "mobile-first",
+    "webcomponents"
+  ],
+  "author": "Anderson C. M. Tavares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anderflash/sypave/issues"
+  },
+  "homepage": "https://github.com/anderflash/sypave#readme"
+}
