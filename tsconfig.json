@@ -9,10 +9,11 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "target": "es5",
+    "target": "es6",
     "typeRoots": [
       "node_modules/@types",
-      "node_modules/idb/lib"
+      "node_modules/idb/lib",
+      "@types"
     ]
   }
 }
