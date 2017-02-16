@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "noImplicitAny": false,
     "target": "es6",
-    "outDir":"dist",
+    "outDir":".",
     "typeRoots": [
       "node_modules/@types",
       "node_modules/idb/lib",

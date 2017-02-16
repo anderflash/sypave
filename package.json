@@ -4,9 +4,9 @@
   "description": "Lightweight framework for lightweight, offline-first and mobile-first web apps.",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
-    "build": "./build",
-    "build:w": "./build -w"
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "build": "tsc",
+    "build:w": "tsc -w"
   },
   "repository": {
     "type": "git",
