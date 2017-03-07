@@ -80,6 +80,7 @@ export class Project {
       fs.mkdirSync(this.name);
       showCreated(this.name);
 
+      // Go to this folder
       process.chdir(this.name);
 
       // Get templates folder
