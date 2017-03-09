@@ -1,3 +1,7 @@
 {
-  "name": "test"
+  "name": "{{name}}",
+  "author":"{{author}}",
+  "license": "{{license}}",
+  "version":"{{version}}",
+  "description":"{{description}}"
 }

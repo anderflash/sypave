@@ -7,8 +7,14 @@ var minify = require('uglify-js').minify;
 var ruglify= require('rollup-plugin-uglify');
 var chalk  = require('chalk');
 var fs     = require('fs');
+var gulp   = require('gulp');
+var gts    = require('gulp-typescript');
 
-var cache;
+// Shortcuts
+const p = gulp.parallel;
+const s = gulp.series;
+
+// var cache;
 
 process.title = 'Sypave';
 
@@ -16,56 +22,53 @@ process.title = 'Sypave';
 if(!fs.existsSync('bin'))
   fs.mkdirSync('bin');
 
-// Set configuration
-const config = {
-  entry: 'src/cmd/index.ts',
-  dest: 'bin/sy',
-  format: 'cjs',
-  cache: cache,
-  external: ['fs','chalk', 'path', 'child_process'],
-  plugins: [
-    rts({typescript: ts}),
-    ruglify({
-      mangle: {
-        toplevel:true
-      },
-      compress: true
-    }, minify)
-  ]
-};
+gulp.task('default', function () {
+  return gulp.src('src/**/*.ts')
+    .pipe(ts({
+      noImplicitAny: true,
+      out: 'output.js'
+    }))
+    .pipe(gulp.dest('built/local'));
+});
+
+
 
 // Choose between incremental builds or just once
 if(process.argv.length > 2 && process.argv[2] == '-w'){
   // Incremental builds
-  const watcher = rwatch(rollup, config);
-  watcher.on('event', event => {
-    switch(event.code){
-      case 'ERROR':
-        console.error(chalk.red(event.code));
-      break;
-      case 'BUILD_START':
-        process.stdout.write(chalk.green("Recompiling..."));
-      break;
-      case 'BUILD_END':
-        fs.writeFileSync(config.dest, "#!/usr/bin/env node\n" + fs.readFileSync(config.dest));
-        process.stdout.write(chalk.green("end.\n"));
-      break;
-    }
-  });
+  // const watcher = rwatch(rollup, config);
+  // watcher.on('event', event => {
+  //   switch(event.code){
+  //     case 'ERROR':
+  //       console.error(chalk.red(event.code));
+  //     break;
+  //     case 'BUILD_START':
+  //       process.stdout.write(chalk.green("Recompiling..."));
+  //     break;
+  //     case 'BUILD_END':
+  //       fs.writeFileSync(config.dest, "#!/usr/bin/env node\n" + fs.readFileSync(config.dest));
+  //       process.stdout.write(chalk.green("end.\n"));
+  //     break;
+  //   }
+  // });
 }else{
-  rollup.rollup(config).then(bundle => {
-    // Generate bundle + sourcemap
-    var result = bundle.generate({
-      // output format - 'amd', 'cjs', 'es', 'iife', 'umd'
-      format: 'cjs'
-    });
+  // compile(process.argv.slice(2), {
+  //   noEmitOnError: true, noImplicitAny: true,
+  //   target: ts.ScriptTarget.ES5, module: ts.ModuleKind.CommonJS
+  // });
+  // rollup.rollup(config).then(bundle => {
+  //   // Generate bundle + sourcemap
+  //   var result = bundle.generate({
+  //     // output format - 'amd', 'cjs', 'es', 'iife', 'umd'
+  //     format: 'cjs'
+  //   });
 
-    // Cache our bundle for later use (optional)
-    cache = bundle;
+  //   // Cache our bundle for later use (optional)
+  //   cache = bundle;
 
-    fs.writeFileSync(config.dest, "#!/usr/bin/env node\n"+result.code);
-    fs.chmodSync(config.dest, 0755);
+  //   fs.writeFileSync(config.dest, "#!/usr/bin/env node\n"+result.code);
+  //   fs.chmodSync(config.dest, 0755);
 
-    console.log(chalk.green("Build success"));
-  });
+  //   console.log(chalk.green("Build success"));
+  // });
 }
