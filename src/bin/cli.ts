@@ -55,4 +55,4 @@ switch (process.argv[2]) {
     console.log(getHelp());
     process.exit(1);
   break;
-}
+}//
